@@ -25,7 +25,9 @@ class Hat:
 def experiment(hat:Hat, expected_balls:dict, num_balls_drawn, num_experiments):
   success = 0
   for _ in range(num_experiments):
-    draw = hat.draw(num_balls_drawn)
-    if all([True if v >= draw.count(k) else False for k, v in expected_balls.items()]):
+    draw = copy.deepcopy(hat).draw(num_balls_drawn)
+    if all([True if v <= draw.count(k) else False for k, v in expected_balls.items()]):
       success += 1
+  print(success)
+  print(num_experiments)
   return success / num_experiments
